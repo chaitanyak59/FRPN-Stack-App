@@ -22,7 +22,7 @@ For the Database it uses Postgres(read below for setup)
 * Database Setup (Pre configure)
     * Create a database in postgres under name todocompany
     * Inside server/src/db directory , youll find scripts folder
-        * RUN 01_init_schema.sql in your DB client(ex: postgres)
+        * RUN 01_init_schema.sql in your DB client(ex: pgAdmin)
 
 #####  Development Commands
 Directory | Command
