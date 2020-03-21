@@ -1,4 +1,4 @@
-# FRNP stack Todo App
+# FRNP stack Todo App (Fastify, React, Node, Postgres)
 A Simple Todo web application with CRUD operations and UI
 
 ## Getting Started
