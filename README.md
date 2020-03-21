@@ -3,6 +3,7 @@ A Simple Todo web application with CRUD operations and UI
 
 ## Getting Started
 Project is built with React and uses Node with Fastify framework as server.
+
 For the Database it uses Postgres(read below for setup)
 
 ### Prerequisites
