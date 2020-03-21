@@ -11,4 +11,5 @@ declare type Response = fastify.FastifyReply<ServerResponse>;
 
 declare interface ServerRouterOptions extends fastify.RouteShorthandOptions {
     url: string;
+    prefix: string;
 }

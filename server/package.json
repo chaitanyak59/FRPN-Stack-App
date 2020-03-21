@@ -9,6 +9,7 @@
     "dotenv": "8.2.0",
     "fastify": "2.12.1",
     "fastify-cors": "3.0.2",
+    "fastify-static": "^2.6.0",
     "http-status-codes": "^1.4.0",
     "node": "13.10.1",
     "pg": "7.18.2"

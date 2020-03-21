@@ -1,13 +1,26 @@
+import * as path from 'path';
+
 import { FastifyServer } from '../global';
 import todoListRoutes from './todo';
+import { errorHandler } from '../helpers/api-error.helpers';
 
-export default function initialiseRoutes(server: FastifyServer): void {
+
+function initRestRoutes(server: FastifyServer): void {
     server.register(function (server: FastifyServer, _, done: (error?: Error) => void): void {
         server.register(todoListRoutes);
-        server.setNotFoundHandler((request, reply) => {
-            reply.status(404);
-            reply.send(`** Error 404 Occured ** ${request.raw.url} **`);
-        });
         done();
-    }, { prefix: '/api' });
+    }, { prefix: '/api' }); // Global Api Register
+
+}
+
+export default function initialiseRoutes(server: FastifyServer): void {
+    initRestRoutes(server);
+
+    // Static Server
+    server.register(require('fastify-static'), {
+        root: path.join(process.cwd(), '..', 'client', 'build')
+    });
+
+    // Error Handler
+    server.setNotFoundHandler(errorHandler);
 }
