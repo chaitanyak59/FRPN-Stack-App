@@ -14,7 +14,7 @@ For the Database it uses Postgres(read below for setup)
 ### Installing
 #####   Ill walk-thru the steps which you need to setup.
 * Pull repo
-* You'll find two direction
+* You'll find two directories
     * client (React-UI)
     * server (Node-server)
 * cd client && yarn install
