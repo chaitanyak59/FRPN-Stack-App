@@ -1,29 +1,24 @@
-import React, { FormEvent, useState, useEffect } from 'react';
-import { createTodoItem } from '../../api/backend/todo-api';
+import React, { useEffect } from 'react';
+import { useApiEffect } from '../hooks/api.hook';
+import { isLoading } from '../../helpers/api.helpers';
+import { createTodoItemRequest } from '../../api/backend/todo-api';
 
 const InputTodo: React.FC = () => {
-    const [formData, setFormData] = useState({ name: '', description: '' });
+    const [fetchApi, setFetchApi] = useApiEffect();
 
     useEffect(() => {
-        if (!formData.name || !formData.description) return;
-        createTodoItem(formData)
-         .then(resp => {
-            //HackyWay to Load Data
-            if(resp.success) {
-                setTimeout(() => window.location.href = "/", 0);
-            }
-         }).catch(e => {
-             console.warn(e)
-             alert('Failed to Create')
-         });
-    }, [formData])
+        if (isLoading(fetchApi.status)) return;
+        if (!fetchApi.error) {
+            setTimeout(() => window.location.href = "/", 1);
+        }
+    }, [fetchApi])
 
     function handleFormSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault(); // Disabling Default Form Behaviour
         const formData = e.target as HTMLFormElement;
         const name = formData["todoName"].value
-        const description = formData["todoDesc"].value
-        setFormData({ name, description })
+        const description = formData["todoDesc"].value;
+        setFetchApi(createTodoItemRequest({ name, description }));
     }
 
     return (
