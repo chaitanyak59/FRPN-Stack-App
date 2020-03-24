@@ -1,8 +1,9 @@
-# FRNP stack Todo App
+# FRNP stack Todo App (Fastify, React, Node, Postgres)
 A Simple Todo web application with CRUD operations and UI
 
 ## Getting Started
 Project is built with React and uses Node with Fastify framework as server.
+
 For the Database it uses Postgres(read below for setup)
 
 ### Prerequisites
@@ -13,7 +14,7 @@ For the Database it uses Postgres(read below for setup)
 ### Installing
 #####   Ill walk-thru the steps which you need to setup.
 * Pull repo
-* You'll find two direction
+* You'll find two directories
     * client (React-UI)
     * server (Node-server)
 * cd client && yarn install
@@ -21,7 +22,7 @@ For the Database it uses Postgres(read below for setup)
 * Database Setup (Pre configure)
     * Create a database in postgres under name todocompany
     * Inside server/src/db directory , youll find scripts folder
-        * RUN 01_init_schema.sql in your DB client(ex: postgres)
+        * RUN 01_init_schema.sql in your DB client(ex: pgAdmin)
 
 #####  Development Commands
 Directory | Command
