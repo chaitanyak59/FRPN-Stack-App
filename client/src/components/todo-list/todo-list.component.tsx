@@ -70,28 +70,31 @@ const TodoListComponent: React.FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            todoList.data.map((value, index) => {
-                                return (<tr key={index}>
-                                    <td>{index + 1}</td>
-                                    <td>{value.name}</td>
-                                    <td>{value.description}</td>
-                                    <td>{transformDate(value.created_at)}</td>
-                                    <Suspense fallback={<td>&#8987;</td>}>
-                                        <td>{renderEditComponent(value)} </td>
-                                    </Suspense>
-                                    <td><button
-                                        type="button"
-                                        onClick={() => setTodoList((prevSt) => ({
-                                            ...prevSt,
-                                            deleteID: value.id
-                                        }))}
-                                        className="btn btn-danger btn-sm">X
-                                    </button>
-                                    </td>
-                                </tr>)
-                            })
-                        }
+                        <Suspense fallback={<tr><td colSpan={5} align={"center"}>&#8987;</td></tr>}>
+                            {
+                                todoList.data.map((value, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{index + 1}</td>
+                                            <td>{value.name}</td>
+                                            <td>{value.description}</td>
+                                            <td>{transformDate(value.created_at)}</td>
+                                            <td>{renderEditComponent(value)} </td>
+                                            <td>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setTodoList((prevSt) => ({
+                                                        ...prevSt,
+                                                        deleteID: value.id
+                                                    }))}
+                                                    className="btn btn-danger btn-sm">X
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </Suspense>
                     </tbody>
                 </table>
             </div>
