@@ -1,37 +1,23 @@
-import { fetchData } from "../rest-client"
-import { SuccessReponse } from "../types/http-types";
 import { TodoItem } from "../../types/todo.types";
 
-export async function createTodoItem<T>(data: T) {
-    const response: SuccessReponse<number> = await fetchData<SuccessReponse<number>>({
-        data,
-        method: 'POST',
-        url: '/posts'
-    });
-    return response;
-}
+export const createTodoItemRequest = (data: { name: string, description: string }) => ({
+    data,
+    method: 'POST',
+    url: '/posts'
+});
 
-export async function getToDoList() {
-    const response: SuccessReponse<TodoItem[]> = await fetchData<SuccessReponse<TodoItem[]>>({
-        method: 'GET',
-        url: '/posts'
-    });
-    return response;
-}
+export const updateTodoListRequest = (data: TodoItem) => ({
+    data,
+    method: 'PUT',
+    url: '/posts',
+});
 
-export async function deleteTodoList(id: number) {
-    const response: SuccessReponse<string|number> = await fetchData<SuccessReponse<string|number>>({
-        method: 'DELETE',
-        url: `/posts/${id}`
-    });
-    return response;
-}
+export const getToDoListRequest = () => ({
+    method: 'GET',
+    url: '/posts'
+})
 
-export async function updateTodoList(data: TodoItem) {
-    const response: SuccessReponse<TodoItem> = await fetchData<SuccessReponse<TodoItem>>({
-        method: 'PUT',
-        url: '/posts',
-        data
-    });
-    return response;
-}
+export const deleteTodoItemRequest = (id: number) => ({
+    method: 'DELETE',
+    url: `/posts/${id}`
+});

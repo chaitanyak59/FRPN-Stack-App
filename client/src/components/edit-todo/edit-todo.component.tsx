@@ -1,30 +1,38 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { updateTodoList } from '../../api/backend/todo-api';
+import { updateTodoListRequest } from '../../api/backend/todo-api';
 import { TodoItem } from '../../types/todo.types';
+import { useApiEffect } from '../hooks/api.hook';
+import { isLoading } from '../../helpers/api.helpers';
 
 declare var $: any;
 
 interface Props extends TodoItem {
-    isSave?: boolean;
+    callApi?: boolean;
 }
 
 const EditTodoComponent: React.FC<Props> = ({ ...args }) => {
     const initialiData = args;
-    const [modalData, setModalData] = useState<Props>({ ...args, isSave: false });
+    const [modalData, setModalData] = useState<Props>({ ...args, callApi: false });
+    const [fetchApi, setFetchApi] = useApiEffect();
 
+    /**Side Actions */
     useEffect(() => {
-        if (!modalData.isSave) return;
-        updateTodoList(modalData)
-            .then(res => {
-                if (res.success) {
-                    $(`#dismiss-${modalData.id}`).click();
-                    //HackyWay to Load Data
-                    setTimeout(() => window.location.href = "/", 0);
-                }
-            }).catch(e => console.error('Cannot Be saved'));
+        if(modalData.callApi) {
+            setFetchApi(updateTodoListRequest(modalData));
+        }
+    }, [modalData, setFetchApi])
 
-    }, [modalData]);
+    // API Status Hook
+    useEffect(() => {
+        if (isLoading(fetchApi.status)) return; // Initial State
 
+        if (fetchApi.data) {
+            $(`#dismiss-${modalData.id}`).click();
+            setTimeout(() => window.location.href = "/", 1);
+        } else if (fetchApi.error) {
+            console.error(fetchApi.error)
+        }
+    }, [fetchApi, modalData, setFetchApi])
 
     function updateDetails(key: keyof Props, value: string) {
         setModalData(prevData => ({
@@ -35,8 +43,8 @@ const EditTodoComponent: React.FC<Props> = ({ ...args }) => {
 
     function updateChanges(isSave: boolean) {
         setModalData((prevState) => ({
-            ...Object.assign({}, isSave ? prevState : initialiData),
-            isSave,
+            ...Object.assign({}, !isSave ? initialiData : prevState), // Keeping stale data until refresh
+            callApi: isSave,
         }))
     }
 
@@ -95,4 +103,4 @@ const EditTodoComponent: React.FC<Props> = ({ ...args }) => {
     )
 }
 
-export default EditTodoComponent;
+export default React.memo(EditTodoComponent);

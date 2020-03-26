@@ -9,14 +9,11 @@ export const apiInstance = axios.create({
 
 apiInstance.defaults.headers.post['Content-Type'] = 'application/json';
 
-export const fetchData = async <T>(config: AxiosRequestConfig): Promise<AxiosResponse<T>| any> => {
+export const createRequest = async <T>(config: AxiosRequestConfig): Promise<AxiosResponse<T>| any> => {
    try {
-       const resposne = await apiInstance(config);
-       return resposne && resposne.data;
+       const response = await apiInstance(config);
+       return response && response.data;
    } catch(e) {
-       throw new Error('Request processing Failed:' + {
-           request: config.method,
-           url: config.url
-       });
+       throw new Error(e.toJSON());
    }
 }

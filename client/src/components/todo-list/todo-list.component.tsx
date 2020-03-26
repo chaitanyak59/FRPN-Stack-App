@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { getToDoList, deleteTodoList } from '../../api/backend/todo-api';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
+import { getToDoListRequest, deleteTodoItemRequest } from '../../api/backend/todo-api';
 import { transformDate } from '../../helpers/date.helpers';
-import EditTodoComponent from '../edit-todo/edit-todo.component';
 import { TodoItem } from '../../types/todo.types';
+import { useApiEffect } from '../hooks/api.hook';
+import { isLoading } from '../../helpers/api.helpers';
+
+const EditTodoComponent = lazy(() => import('../edit-todo/edit-todo.component'));
 
 interface StateProps {
     data: TodoItem[],
-    loadData: boolean;
+    loadData: boolean,
+    deleteID?: number | undefined,
 }
 
 function renderEditComponent(props: TodoItem): JSX.Element {
@@ -14,69 +18,87 @@ function renderEditComponent(props: TodoItem): JSX.Element {
 }
 
 const TodoListComponent: React.FC = () => {
-    const [todoList, setTodoList] = useState<StateProps>({ data: [], loadData: true });
+    const [todoList, setTodoList] = useState<StateProps>({ data: [], loadData: true, deleteID: undefined });
+    const [fetchApi, setApiDetails] = useApiEffect();
+
+    /**Side Actions */
     useEffect(() => {
         if (todoList.loadData) {
-            getToDoList()
-                .then((data) => {
-                    reloadList(false, data.payload);
-                }).catch(e => setTodoList(prevS => ({ ...prevS, loadData: false })))
+            setApiDetails(getToDoListRequest());
+        } else if (todoList.deleteID) {
+            setApiDetails(deleteTodoItemRequest(todoList.deleteID));
         }
-    }, [todoList]);
+    }, [setApiDetails, todoList.loadData, todoList.deleteID]);
 
-    async function deleteData(id: number): Promise<void> {
-        try {
-            const waitForDelete = await deleteTodoList(id)
-            if (waitForDelete.success) {
-                reloadList(true);
-            }
-        } catch (e) {
-            console.error('Item Not Deleted!', e)
+    /**ResponseListener */
+    useEffect(() => {
+        if (isLoading(fetchApi.status)) {
+            return;
+        };
+        const { data, error } = fetchApi;
+        if (data && data.success) {
+            const isDeleteRequest = fetchApi.requestConfig.method === 'DELETE';
+            const payload = isDeleteRequest ? [] : data.payload;
+            reloadList(!!isDeleteRequest, payload);
+        } else if (error) {
+            console.log('TodoList Error', error)
         }
-    }
+    }, [fetchApi])
 
-    function reloadList(shouldLoad: boolean, data = [] as TodoItem[]) {
+
+    function reloadList(shouldLoad: boolean, data: TodoItem[]) {
         setTodoList((prevState) => ({
-            data: shouldLoad ? prevState.data : data,
+            data: shouldLoad ? prevState.data : data, // Keeping Old data, until new call is made
             loadData: shouldLoad,
+            deleteID: undefined,
         }))
     }
 
     return (
-        <div className="container table-responsive">
-            <h1 className="text-center mt-5">Todo List</h1>
-            <table className="table table-hover mt-5">
-                <thead className="thead-dark">
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Created On</th>
-                        <th>{/* Edit Todo Item */}</th>
-                        <th>{/* Delete TodoITem */}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        todoList.data.map((value, index) => {
-                            return (<tr key={index}>
-                                <td>{index + 1}</td>
-                                <td>{value.name}</td>
-                                <td>{value.description}</td>
-                                <td>{transformDate(value.created_at)}</td>
-                                <td>{renderEditComponent(value)} </td>
-                                <td><button
-                                    type="button"
-                                    onClick={deleteData.bind(null, value.id)}
-                                    className="btn btn-danger btn-sm">X
-                                    </button>
-                                </td>
-                            </tr>)
-                        })
-                    }
-                </tbody>
-            </table>
-        </div>
+        <>
+            <div className="container table-responsive">
+                <h1 className="text-center mt-5">Todo List</h1>
+                <table className="table table-hover mt-5">
+                    <thead className="thead-dark">
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Created On</th>
+                            <th>{/* Edit Todo Item */}</th>
+                            <th>{/* Delete TodoITem */}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <Suspense fallback={<tr><td colSpan={5} align={"center"}>&#8987;</td></tr>}>
+                            {
+                                todoList.data.map((value, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{index + 1}</td>
+                                            <td>{value.name}</td>
+                                            <td>{value.description}</td>
+                                            <td>{transformDate(value.created_at)}</td>
+                                            <td>{renderEditComponent(value)} </td>
+                                            <td>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setTodoList((prevSt) => ({
+                                                        ...prevSt,
+                                                        deleteID: value.id
+                                                    }))}
+                                                    className="btn btn-danger btn-sm">X
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    )
+                                })
+                            }
+                        </Suspense>
+                    </tbody>
+                </table>
+            </div>
+        </>
     )
 }
 
