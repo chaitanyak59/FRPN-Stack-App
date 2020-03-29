@@ -16,7 +16,8 @@ function initRestRoutes(server: FastifyServer): void {
 function initStaticRoutes(server: FastifyServer): void {
     server.register(fstatic, {
         root: path.join(process.cwd(), '..', 'client', 'build'),
-        maxAge: 86400
+        maxAge: 86400,
+        cacheControl: true
     });
 }
 

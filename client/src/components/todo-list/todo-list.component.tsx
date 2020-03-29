@@ -47,11 +47,11 @@ const TodoListComponent: React.FC = () => {
 
 
     function reloadList(shouldLoad: boolean, data: TodoItem[]) {
-        setTodoList((prevState) => ({
-            data: shouldLoad ? prevState.data : data, // Keeping Old data, until new call is made
+        setTodoList({
+            data, 
             loadData: shouldLoad,
             deleteID: undefined,
-        }))
+        })
     }
 
     return (
