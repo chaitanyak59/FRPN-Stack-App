@@ -2,9 +2,7 @@ language: node_js
 sudo: required
 node_js:
  - 10.19.0
-cache:
- directories:
-  - "node_modules"
+cache: yarn
 install:
   - yarn install:deps
 script:
@@ -13,3 +11,6 @@ script:
 after_success:
    - yarn build
    - echo "Build Successfull!"
+branches:
+  only:
+  - master
