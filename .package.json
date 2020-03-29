@@ -1,0 +1,14 @@
+{
+    "name": "frpn-todo-app",
+    "version": "1.0.0",
+    "author": "Chaitanya Kumar",
+    "engines": {
+      "node": "10.19.0"
+    },
+    "scripts": {
+      "install": "npm run dependency",
+      "install:all": "npm run dependency && npm run build",
+      "build": "npm run build-admin && npm run build-editor-extension && npm run build-player3 && npm run build-server && npm run clean"
+    }
+  }
+  
