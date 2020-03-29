@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/chaitanya-apty/FRPN-TodoApp-React-Postgres.svg?branch=master)](https://travis-ci.com/chaitanya-apty/FRPN-TodoApp-React-Postgres)
+
 # FRNP stack Todo App (Fastify, React, Node, Postgres)
 A Simple Todo web application with CRUD operations and UI
 
