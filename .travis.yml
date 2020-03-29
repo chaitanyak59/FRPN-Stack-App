@@ -8,7 +8,7 @@ cache:
 install:
   - yarn install:deps
 script:
-  - cd client && yarn test && cd ..
+  # - cd client && yarn test && cd ..
   - cd server && yarn lint && cd ..
 after_success:
    - yarn build
