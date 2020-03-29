@@ -11,6 +11,3 @@ script:
 after_success:
    - yarn build
    - echo "Build Successfull!"
-branches:
-  only:
-  - master
