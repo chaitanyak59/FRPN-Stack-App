@@ -5,11 +5,24 @@ declare interface FastifyServer extends fastify.FastifyInstance<Server, Incoming
     db?: any;
 }
 
-declare type Request  = fastify.FastifyRequest<IncomingMessage, fastify.DefaultQuery, fastify.DefaultParams, fastify.DefaultHeaders, any>;
+declare type Request = fastify.FastifyRequest<IncomingMessage, fastify.DefaultQuery, fastify.DefaultParams, fastify.DefaultHeaders, any>;
 
 declare type Response = fastify.FastifyReply<ServerResponse>;
 
 declare interface ServerRouterOptions extends fastify.RouteShorthandOptions {
-    url: string;
-    prefix: string;
+    url?: string;
+    prefix?: string;
+}
+
+type JSONSchema = Record<string, any>;
+
+export interface ValidationSchema {
+    body?: JSONSchema;
+    querystring?: JSONSchema;
+    params?: JSONSchema;
+    headers?: JSONSchema;
+    response?: {
+        [code: number]: JSONSchema;
+        [code: string]: JSONSchema;
+    };
 }

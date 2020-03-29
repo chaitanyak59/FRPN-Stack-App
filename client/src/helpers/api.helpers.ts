@@ -1,5 +1,4 @@
-import { REQUEST_STATUS } from "../types/api.types";
-import { ApiHook } from "../types/api-hook.types";
+import { REQUEST_STATUS, ApiHook } from "../types/api.types";
 
 export const updateRequestStatus = (config: any): ApiHook => ({
     status: REQUEST_STATUS.inprogress,
