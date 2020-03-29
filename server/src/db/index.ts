@@ -15,7 +15,7 @@ let dbClient: PoolClient;
 export const initializeDb: any = async (server: FastifyServer, opts: RouteOptions,
     done: (error?: Error) => void): Promise<void> => {
     try {
-        const DB_URL = process.env.DB_URL;
+        const DB_URL = process.env.DATABASE_URL;
         const config: PoolConfig = getPoolProperties(DB_URL);
         const pool = new Pool(config);
         dbClient = await pool.connect();

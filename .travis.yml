@@ -1,0 +1,15 @@
+language: node_js
+sudo: required
+node_js:
+ - 10.19.0
+cache:
+ directories:
+  - "node_modules"
+install:
+  - yarn install:deps
+script:
+  # - cd client && yarn test && cd ..
+  - cd server && yarn lint && cd ..
+after_success:
+   - yarn build
+   - echo "Build Successfull!"
