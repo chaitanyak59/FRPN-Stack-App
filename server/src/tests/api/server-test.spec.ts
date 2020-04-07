@@ -1,14 +1,15 @@
 import { assert } from 'chai';
-import { getServerMocks } from "../main";
-import { FastifyServer } from '../global';
-import { mockRequests } from './_mocks_/api';
+import { getServerMocks } from "../../main";
+import { FastifyServer } from '../../global';
+import { mockRequests } from '../_mocks_/mock-api';
 
 const app = getServerMocks();
+
 after(function (done: Mocha.Done) {
     app.server.close(done);
 });
 
-describe("Api Tests", function () {
+describe("Api Automation Tests", function () {
     let server: FastifyServer;
 
     before((done) => {

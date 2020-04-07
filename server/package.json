@@ -17,7 +17,7 @@
   "scripts": {
     "start": "tsc-watch --onSuccess \"node dist/main.js\" --onFailure \"echo Check compilation errors\"",
     "lint": "eslint --ext ts src",
-    "test": "ts-mocha --exit src/tests/*.ts",
+    "test": "ts-mocha --exit src/tests/**/*.spec.ts",
     "build": "tsc --outDir build",
     "start:prod": "cross-env NODE_ENV=production node build/main.js"
   },
