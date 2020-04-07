@@ -1,5 +1,6 @@
 import { FastifyServer, ServerRouterOptions as RouteOptions } from "../global";
-import { Pool, PoolConfig, PoolClient } from 'pg';
+import { Pool, PoolConfig } from 'pg';
+import { DbType } from "../types/db.types";
 
 const getPoolProperties = (connString?: string): Partial<PoolConfig> => ({
     max: 20,
@@ -10,7 +11,7 @@ const getPoolProperties = (connString?: string): Partial<PoolConfig> => ({
 });
 
 //Do not export this unless Required, Already Decorated Via Server
-let dbClient: PoolClient;
+let dbClient: DbType;
 
 export const initializeDb: any = async (server: FastifyServer, opts: RouteOptions,
     done: (error?: Error) => void): Promise<void> => {

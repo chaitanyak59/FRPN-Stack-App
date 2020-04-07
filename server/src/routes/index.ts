@@ -5,15 +5,13 @@ import todoListRoutes from './todo';
 import { errorHandler } from '../helpers/api-error.helpers';
 
 
-function initRestRoutes(server: FastifyServer): void {
-    server.register(function (server: FastifyServer, _, done: (error?: Error) => void): void {
-        server.register(todoListRoutes, { prefix: '/posts' }); //Routes Go Here...
-        done();
-    }, { prefix: '/api'}); // Global Api Register
-
+function registerHandlers(server: FastifyServer, _: unknown, done: (error?: Error) => void) {
+    server.register(todoListRoutes, { prefix: '/posts' }); //Routes Go Here...
+    done();
 }
 
-function initStaticRoutes(server: FastifyServer): void {
+function initRestRoutes(server: FastifyServer): void {
+    server.register(registerHandlers, { prefix: '/api'}); // Global Api Register
     server.register(fstatic, {
         root: path.join(process.cwd(), '..', 'client', 'build'),
         maxAge: 86400,
@@ -23,7 +21,6 @@ function initStaticRoutes(server: FastifyServer): void {
 
 export default function initialiseRoutes(server: FastifyServer): void {
     initRestRoutes(server);
-    initStaticRoutes(server);
 
     // Error Handler
     server.setNotFoundHandler(errorHandler);

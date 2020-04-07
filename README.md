@@ -40,8 +40,8 @@ Directory | Command
 client | yarn build
 server | yarn build && yarn start:prod
 
-## Running the Lints
-Refer package.json of both the directories for lint and test commands
+## Running the Tests
+Refer package.json of both the directories for lints and tests commands
 
 ### Up coming
 1) Add Golang Server using Echo
