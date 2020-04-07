@@ -61,7 +61,6 @@ Will try on heroku and ill update the url here
 Please feel free to use,criticize and give PR's if anything missed
 
 ## Authors
-
 * **Chaitanya Kumar** - [Github](https://github.com/chaitanya-apty)
 
 ## License
