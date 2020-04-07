@@ -1,12 +1,12 @@
-import { PoolClient } from "pg";
+import { DbType } from "../../../types/db.types";
 
 interface TodoRepo {
-    db: PoolClient;
+    db: DbType;
 }
 
 export const todoRepo = {} as TodoRepo;
 
-export function initTodoRepo(db: PoolClient): TodoRepo {
+export function initTodoRepo(db: DbType): TodoRepo {
     todoRepo.db = db;
     return todoRepo;
 }

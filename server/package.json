@@ -17,16 +17,22 @@
   "scripts": {
     "start": "tsc-watch --onSuccess \"node dist/main.js\" --onFailure \"echo Check compilation errors\"",
     "lint": "eslint --ext ts src",
+    "test": "ts-mocha --exit src/tests/*.ts",
     "build": "tsc --outDir build",
     "start:prod": "cross-env NODE_ENV=production node build/main.js"
   },
   "devDependencies": {
+    "@types/chai": "^4.2.11",
+    "@types/mocha": "^7.0.2",
     "@types/node": "^13.9.2",
     "@types/pg": "^7.14.3",
     "@typescript-eslint/eslint-plugin": "^2.24.0",
     "@typescript-eslint/parser": "^2.24.0",
+    "chai": "^4.2.0",
     "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
+    "mocha": "^7.1.1",
+    "ts-mocha": "^7.0.0",
     "tsc-watch": "^4.2.3",
     "typescript": "3.8.3"
   }
