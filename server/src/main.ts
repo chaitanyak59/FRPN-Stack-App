@@ -6,6 +6,8 @@ import applySettings from './settings';
 import initialiseRoutes from './routes';
 import { FastifyServer } from './global';
 
+let server: FastifyServer;
+
 function iniliaseEnv(): void {
   const result = dotenv.config();
   if (result.error) {
@@ -18,10 +20,16 @@ async function startServer(): Promise<void> {
   const port = Number(process.env.PORT);
   const host = process.env.HOST;
 
-  const server: FastifyServer = fastify();
+  server = fastify();
   applySettings(server); // Can include Configuration,DB-plugin
   initialiseRoutes(server);
   await startApp(server, { port, host });
 }
 
 startServer();
+
+//Added For tests
+export const getServerMocks = () => ({
+  server
+});
+
