@@ -9,5 +9,5 @@ script:
   # - cd client && yarn test && cd ..
   - cd server && yarn lint && cd ..
 after_success:
-   - yarn build
-   - echo "Build Successfull!"
+  - yarn build
+  - echo "Build Successfull!"
