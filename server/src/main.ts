@@ -16,16 +16,20 @@ function iniliaseEnv(): void {
 }
 
 async function startServer(): Promise<void> {
-  iniliaseEnv();
-  const port = Number(process.env.PORT);
-  const host = process.env.HOST;
-
-  server = fastify({
-    logger: true
-  });
-  applySettings(server); // Can include Configuration,DB-plugin
-  initialiseRoutes(server);
-  await startApp(server, { port, host });
+  try {
+    iniliaseEnv();
+    const port = Number(process.env.PORT);
+    const host = process.env.HOST;
+  
+    server = fastify({
+      logger: true
+    });
+    applySettings(server); // Can include Configuration,DB-plugin
+    initialiseRoutes(server);
+    await startApp(server, { port, host });
+  } catch(e) {
+    console.error("Error @ App:",e);
+  }
 }
 
 startServer();
