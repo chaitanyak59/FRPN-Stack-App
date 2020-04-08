@@ -20,9 +20,7 @@ async function startServer(): Promise<void> {
   const port = Number(process.env.PORT);
   const host = process.env.HOST;
 
-  server = fastify({
-    logger: true
-  });
+  server = fastify();
   applySettings(server); // Can include Configuration,DB-plugin
   initialiseRoutes(server);
   await startApp(server, { port, host });
