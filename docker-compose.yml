@@ -1,0 +1,37 @@
+version: "3"
+
+services:
+  server:
+    depends_on: 
+      - "db"
+    build:
+      context: ./server
+    ports: 
+      - 5000:5000
+    volumes:
+      - "./client/build:/usr/app/client/build"
+      - "./server/src/:/usr/app/server/src/"
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/todolist
+  client:
+    build:
+      context: ./client
+    ports:
+      - "3000:3000"
+    depends_on: 
+      - "server"
+    environment:
+      REACT_APP_SERVER_URL: http://localhost:5000/api
+  db:
+    image: postgres
+    restart: always
+    container_name: db
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_DB: "todolist"
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+      - ./server/src/db/scripts/:/docker-entrypoint-initdb.d/
+volumes: 
+  db-data:
