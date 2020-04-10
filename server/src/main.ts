@@ -5,6 +5,7 @@ import startApp from './app';
 import applySettings from './settings';
 import initialiseRoutes from './routes';
 import { FastifyServer } from './global';
+import { getServerPort, getServerHost } from './helpers/env.helpers';
 
 let server: FastifyServer;
 
@@ -18,8 +19,8 @@ function iniliaseEnv(): void {
 async function startServer(): Promise<void> {
   try {
     iniliaseEnv();
-    const port = Number(process.env.PORT);
-    const host = process.env.HOST;
+    const port = getServerPort() || 5000;
+    const host = getServerHost();
   
     server = fastify({
       logger: true
