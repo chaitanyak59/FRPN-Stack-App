@@ -1,4 +1,4 @@
--- SafeCheck - Although PgMigrate Creates Schema, added for Docker
+-- SafeCheck - Added for Docker
 CREATE SCHEMA IF NOT EXISTS todoapp;
 
 -- Search Path
