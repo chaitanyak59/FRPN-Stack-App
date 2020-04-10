@@ -7,7 +7,7 @@
   },
   "scripts": {
     "preinstall": "npm run install:deps",
-    "postinstall": "scripts/build.sh",
+    "postinstall": "chmod a+x scripts/build.sh",
     "install:deps": "npm run client:deps && npm run server:deps",
     "client:deps": "cd client && yarn install --prod && cd ..",
     "server:deps": "cd server && yarn install && cd ..",
