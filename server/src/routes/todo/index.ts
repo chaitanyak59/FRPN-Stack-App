@@ -12,10 +12,10 @@ import {
 export default function todoListRoutes(server: FastifyServer, _: ServerRouterOptions, done: (error?: Error) => void): void {
     initTodoRepo(server.db); // Initialise Repo Layer
 
-    server.get('/', handler.getAllTodoData);
-    server.get('/:id', { schema: getTodoByIdSchema }, handler.getTodoById);
-    server.post('/', { schema: createTodoSchema }, handler.createTodoItem);
-    server.put('/', { schema: updateTodoItemSchema }, handler.updateTodoItem);
-    server.delete('/:id', { schema: deleteTodoSchema }, handler.deleteTodoItem);
+    server.get('', handler.getAllTodoData);
+    server.get(':id', { schema: getTodoByIdSchema }, handler.getTodoById);
+    server.post('', { schema: createTodoSchema }, handler.createTodoItem);
+    server.put('', { schema: updateTodoItemSchema }, handler.updateTodoItem);
+    server.delete(':id', { schema: deleteTodoSchema }, handler.deleteTodoItem);
     done();
 }
