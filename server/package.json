@@ -22,9 +22,9 @@
     "lint": "eslint --ext ts src",
     "test": "ts-mocha --exit src/tests/**/*.spec.ts",
     "build": "tsc --outDir build",
-    "migration": "node-pg-migrate create -s todoapp -t migrations",
-    "migrate": "node-pg-migrate -s todoapp -t migrations",
-    "migrate-up": "yarn migrate up",
+    "migration": "node-pg-migrate create -s todoapp",
+    "migrate": "node-pg-migrate up -s todoapp",
+    "migrate-down": "node-pg-migrate down -s todoapp",
     "start:prod": "cross-env NODE_ENV=production node build/main.js"
   },
   "devDependencies": {
