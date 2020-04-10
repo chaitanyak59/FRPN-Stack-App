@@ -7,6 +7,8 @@ cache:
   directories:
     - node_modules
     - $HOME/client/node_modules
+    - $HOME/server/node_modules
+
 install:
   - yarn install:deps
 script:
