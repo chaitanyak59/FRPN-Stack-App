@@ -15,6 +15,7 @@
     "build:client": "cd client && yarn build && cd ..",
     "build:server": "cd server && yarn build && cd .."
   },
+  "cacheDirectories": ["client/node_modules", "server/node_modules"],
   "repository": "https://github.com/chaitanya-apty/FRPN-stack--Full-Stack-Todo-App.git",
   "license": "MIT"
 }
