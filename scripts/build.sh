@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-if [ $TRAVIS -ne true ]
+if [ $TRAVIS != true ]
 then
     echo $TRAVIS
     echo "Running Database Setup..."
@@ -13,7 +13,7 @@ then
     #Migrations Create Tables,Inits..
     echo "Running Migrations"
     cd server && PGSSLMODE=require npm run migrate && cd ..
-    if [ $? -ne 0 ]; then
+    if [ $? = 0 ]; then
         echo "Migration failed"
         exit 1
     fi
