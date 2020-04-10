@@ -6,12 +6,12 @@ import { errorHandler } from '../helpers/api-error.helpers';
 
 
 function registerHandlers(server: FastifyServer, _: unknown, done: (error?: Error) => void) {
-    server.register(todoListRoutes, { prefix: 'posts/' }); //Routes Go Here...
+    server.register(todoListRoutes, { prefix: '/posts' }); //Routes Go Here...
     done();
 }
 
 function initRestRoutes(server: FastifyServer): void {
-    server.register(registerHandlers, { prefix: '/api/'}); // Global Api Register
+    server.register(registerHandlers, { prefix: '/api'}); // Global Api Register
     server.register(fstatic, {
         root: path.join(process.cwd(), '..', 'client', 'build'),
         maxAge: 86400,
