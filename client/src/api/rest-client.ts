@@ -1,7 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { getApiUrl } from '../helpers/env.helpers';
 
 export const apiInstance = axios.create({
-    baseURL: process.env.REACT_APP_SERVER_URL,
+    baseURL: getApiUrl(),
     timeout: 4000
 });
 

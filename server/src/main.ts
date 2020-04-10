@@ -5,6 +5,7 @@ import startApp from './app';
 import applySettings from './settings';
 import initialiseRoutes from './routes';
 import { FastifyServer } from './global';
+import { getServerPort, getServerHost } from './helpers/env.helpers';
 
 let server: FastifyServer;
 
@@ -16,16 +17,20 @@ function iniliaseEnv(): void {
 }
 
 async function startServer(): Promise<void> {
-  iniliaseEnv();
-  const port = Number(process.env.PORT);
-  const host = process.env.HOST;
-
-  server = fastify({
-    logger: true
-  });
-  applySettings(server); // Can include Configuration,DB-plugin
-  initialiseRoutes(server);
-  await startApp(server, { port, host });
+  try {
+    iniliaseEnv();
+    const port = getServerPort() || 5000;
+    const host = getServerHost();
+  
+    server = fastify({
+      logger: true
+    });
+    applySettings(server); // Can include Configuration,DB-plugin
+    initialiseRoutes(server);
+    await startApp(server, { port, host });
+  } catch(e) {
+    console.error("Error @ App:",e);
+  }
 }
 
 startServer();

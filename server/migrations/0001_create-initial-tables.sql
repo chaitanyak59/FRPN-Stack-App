@@ -1,8 +1,8 @@
-DROP SCHEMA IF EXISTS todocompany;
-CREATE SCHEMA todocompany;
+-- SafeCheck - Although PgMigrate Creates Schema, added for Docker
+CREATE SCHEMA IF NOT EXISTS todoapp;
 
--- Set Search Path
-SET search_path TO todocompany;
+-- Search Path
+SET search_path TO todoapp;
 
 CREATE TABLE IF NOT EXISTS todo (
    id               SERIAL                                  NOT NULL,
