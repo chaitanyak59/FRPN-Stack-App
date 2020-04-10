@@ -1,4 +1,4 @@
-SET search_path TO todocompany;
+SET search_path TO todoapp;
 
 INSERT INTO todo(name, description) VALUES ('SuperUser', 'Daily Jog # 10am'),
         ('SuperUser', 'Daily Dinner # 10.30am'),

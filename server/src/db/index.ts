@@ -7,7 +7,7 @@ const getPoolProperties = (connString?: string): Partial<PoolConfig> => ({
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000,
     connectionString: connString,
-    ssl: Boolean(process.env.SSL),
+    ssl: Boolean(process.env.PGSSLMODE),
 });
 
 //Do not export this unless Required, Already Decorated Via Server
