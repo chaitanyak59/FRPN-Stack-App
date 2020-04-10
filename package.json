@@ -6,7 +6,7 @@
     "node": "10.19.0"
   },
   "scripts": {
-    "preinstall": "npm run install:deps",
+    "install": "npm run install:deps",
     "postinstall": "[ ! -z $TRAVIS ] || ./scripts/build.sh",
     "install:deps": "npm run client:deps && npm run server:deps",
     "client:deps": "cd client && yarn install --prod && cd ..",
@@ -15,7 +15,10 @@
     "build:client": "cd client && yarn build && cd ..",
     "build:server": "cd server && yarn build && cd .."
   },
-  "cacheDirectories": ["client/node_modules", "server/node_modules"],
+  "cacheDirectories": [
+    "client/node_modules", 
+    "server/node_modules"
+  ],
   "repository": "https://github.com/chaitanya-apty/FRPN-stack--Full-Stack-Todo-App.git",
   "license": "MIT"
 }
