@@ -14,5 +14,4 @@ set -e
         echo "Migration failed"
         exit 1
     fi
-echo "Done! Ready to Rock..."
 exit 0
