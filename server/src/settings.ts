@@ -5,9 +5,10 @@ import { corsCallback } from "./types/cors-types";
 
 const corsOptions = {
     origin: (origin: string, cb: corsCallback): unknown => {
+        //  Request from localhost will pass
         if ( !origin || 
-             ['localhost', '.*fastify.*'].some(domain => origin.match(domain))) {
-            //  Request from localhost will pass
+             ['localhost', '.*fastify.*'].some(domain => origin.match(domain))
+           ) {
             cb(null, true);
             return;
         }
