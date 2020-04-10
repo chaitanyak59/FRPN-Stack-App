@@ -1,5 +1,6 @@
 -- SafeCheck - Added for Docker
-CREATE SCHEMA IF NOT EXISTS todoapp;
+DROP SCHEMA IF EXISTS todoapp CASCADE;
+CREATE SCHEMA todoapp;
 
 -- Search Path
 SET search_path TO todoapp;

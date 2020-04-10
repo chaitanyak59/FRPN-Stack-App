@@ -2,7 +2,11 @@ language: node_js
 sudo: required
 node_js:
  - 10.19.0
-cache: yarn
+cache: 
+  yarn: true
+  directories:
+    - node_modules
+    - $HOME/client/node_modules
 install:
   - yarn install:deps
 script:
