@@ -2,7 +2,7 @@ const getEnv = () => process.env;
 
 export const getSSLConnection = (): boolean => {
     const env = getEnv();
-    return Number(env.PGSSLMODE) > 0;
+    return env.PGSSLMODE === "require";
 };
 
 export const getServerPort = (): number => {

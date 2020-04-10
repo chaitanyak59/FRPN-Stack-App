@@ -6,12 +6,15 @@
       "node": "10.19.0"
     },
     "scripts": {
+      "preinstall": "yarn install:deps",
+      "postinstall": "scripts/build.sh",
       "install:deps": "yarn client:deps && yarn server:deps",
-      "client:deps": "cd client && yarn install && cd ..",
+      "client:deps": "cd client && yarn install --prod && cd ..",
       "server:deps": "cd server && yarn install && cd ..",
       "build": "yarn build:client && yarn build:server",
       "build:client": "cd client && yarn build && cd ..",
-      "build:server": "cd server && yarn build && cd .."
+      "build:server": "cd server && yarn build && cd ..",
+      "heroku-postbuild": "echo Successfully Built App."
     }
   }
   
