@@ -1,40 +1,47 @@
 [![Build Status](https://travis-ci.com/chaitanya-apty/FRPN-TodoApp-React-Postgres.svg?branch=master)](https://travis-ci.com/chaitanya-apty/FRPN-TodoApp-React-Postgres)
 
-# FRNP stack Todo App (Fastify, React, Node, Postgres)
-A Simple Todo web application with CRUD operations and UI
+# FRPN(Fastify, React, Node, Postgres) Stack App 
+A Simple Todo web application
 
 ## Getting Started
-Project is built with React and uses Node with Fastify framework as server.
-
-For the Database it uses Postgres(read below for setup)
+Project is built with React and uses Node with Fastify framework for server.
 
 ### Prerequisites
 1) Make sure Node, Postgres is installed
-2) For the DB setup any DB client should suffice, I used PgAdmin
-3) <b>strongly suggest you to setup the project with yarn</b>
+2) For the DB setup, any DB client should suffice, I used PgAdmin
+3) <b>I suggest you to setup the project with yarn</b>
 
 ### Installing
-#####   Ill walk-thru the steps which you need to setup.
+####   Walk-thru of Project Setup:
 * Pull repo
-* You'll find two directories
-    * client (React-UI)
-    * server (Node-server)
-* cd client && yarn install
-* cd server && yarn install
-* Database Setup (Pre configure)
-    * Create a database in postgres under name todocompany
-    * Inside server/src/db directory , youll find scripts folder
-        * RUN 01_init_schema.sql in your DB client(ex: pgAdmin)
 
-#####  Development Commands
+    > Docker Mode (Easy if you have Docker)
+    * Make Sure you have Docker installed and up
+    * Checkout to project root directory and run
+        * docker-compose up --build
+        * Docker will build the required images, starts the App and exposes 3000 port
+        * Head to your Browser and open localhost:3000
+
+    > Local Setup
+    * You'll find two directories
+        1) client (React-UI)
+        2) server (Node-server)
+    * Run > cd client && yarn install
+    * Run > cd server && yarn install
+    * Database Setup (Must be pre-configured)
+        * Create a database in postgres under name todolist
+        * Create Schema under todolist with name todoapp (Kill me later!)
+    * Checkout to server directory and run <b>yarn migrate</b>, with this DB setup is complete
+
+#### Starting the Project @ Local
+     # Development Commands
 Directory | Command
 ------------ | -------------
 client | yarn start (will start @ 3000)
 server | yarn start (will start @ 5000)
 
-NOTE: Your are free change the ports by modifying env files of respective folders
 
-#####  Production Commands
+    # Production Commands
 Directory | Command
 ------------ | -------------
 client | yarn build
@@ -49,20 +56,22 @@ Refer package.json of both the directories for lints and tests commands
 
 ## Deployment
 
-Will try on heroku and ill update the url here
+* [Heroku Application Demo](https://fastify-todo.herokuapp.com/)
 
 ## Built With
 
 * [React](https://reactjs.org/) - Web library used
 * [Fastify](https://github.com/fastify/fastify) - Server Framework
 * [Node](https://nodejs.org/) - Server Runtime
+* [Travis CI](https://travis-ci.org/) - Continous Integration
+* [Heroku](https://heroku.com/) - Continous Deployment
 
-## Contributing
+### Contributing
 Please feel free to use,criticize and give PR's if anything missed
 
-## Authors
+### Authors
 * **Chaitanya Kumar** - [Github](https://github.com/chaitanya-apty)
 
-## License
+### License
 
 This project is licensed under the MIT License - see the [LICENSE.md](license.md) file for details

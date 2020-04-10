@@ -6,7 +6,6 @@ export const apiInstance = axios.create({
     timeout: 4000
 });
 
-console.log("Backend URl:", getApiUrl())
 apiInstance.defaults.headers.post['Content-Type'] = 'application/json';
 
 export const createRequest = async <T>(config: AxiosRequestConfig): Promise<AxiosResponse<T>> => {
