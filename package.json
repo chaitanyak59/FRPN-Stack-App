@@ -13,8 +13,7 @@
     "server:deps": "cd server && yarn install && cd ..",
     "build": "npm run build:client && npm run build:server",
     "build:client": "cd client && yarn build && cd ..",
-    "build:server": "cd server && yarn build && cd ..",
-    "heroku-postbuild": "echo Successfully Built App."
+    "build:server": "cd server && yarn build && cd .."
   },
   "repository": "https://github.com/chaitanya-apty/FRPN-stack--Full-Stack-Todo-App.git",
   "license": "MIT"
