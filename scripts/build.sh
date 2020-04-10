@@ -2,7 +2,7 @@
 set -e
     echo $TRAVIS
     echo "Running Database Setup..."
-    psql $DATABASE_URL -c 'CREATE DATABASE IF NOT EXISTS todolist'
+    psql $DATABASE_URL -U postgres -tc "SELECT 1 FROM pg_database WHERE datname = 'todolist'" | grep -q 1 || psql -U postgres -c "CREATE DATABASE todolist"
     psql $DATABASE_URL -c 'CREATE SCHEMA IF NOT EXISTS todoapp'
     echo "Finished Database Setup"
 
