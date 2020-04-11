@@ -23,7 +23,8 @@ async function startServer(): Promise<void> {
     const host = getServerHost();
   
     server = fastify({
-      logger: true
+      logger: true,
+      ignoreTrailingSlash: true,
     });
     applySettings(server); // Can include Configuration,DB-plugin
     initialiseRoutes(server);

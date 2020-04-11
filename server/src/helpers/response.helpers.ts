@@ -5,11 +5,11 @@ interface ResponseMessage<T> {
     payload: T | boolean;
 }
 
-export function getStatusCode<T>(data: T, isCreate = false) {
+export function getStatusCode<T>(data: T, isCreate = false, ovverideCode?: number) {
     if (data) {
         return isCreate ? codes.CREATED : codes.OK;
     } else {
-        return codes.NOT_FOUND;
+        return ovverideCode ? ovverideCode : codes.NOT_FOUND;
     }
 }
 
