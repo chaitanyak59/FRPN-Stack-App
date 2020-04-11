@@ -22,7 +22,7 @@ class CryptoService {
     }
 
     public async validateCrypto<T>(withInput: T, hash: string): Promise<boolean>  {
-        const isValid: boolean = await this.cryptoLib.hash(withInput, hash);
+        const isValid: boolean = await this.cryptoLib.compare(withInput, hash);
         return isValid;
     }
 }

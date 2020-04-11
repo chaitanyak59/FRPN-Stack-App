@@ -29,7 +29,7 @@ export async function registerUser(emailID: string): Promise<PAuthUser | null> {
 }
 
 // Check User active or not
-export async function validateUser(emailID: string): Promise<{ id: number; email: string } | null> {
+export async function validateUser(emailID: string): Promise<PAuthUser | null> {
     try {
         const userDetails = await authRepo.db.query<{ id: number; is_active: boolean }>(`SELECT id,is_active from todoapp.users where is_active = true AND email like $1`, [
             emailID
@@ -65,17 +65,19 @@ export async function updatePassword(userDetails: PAuthUser): Promise<boolean | 
 }
 
 //Compare User Plain pass with Hash
-export async function validatePassword(userDetails: PAuthUser): Promise<string|null> {
+export async function validatePassword(userDetails: PAuthUser): Promise<PAuthUser|null> {
     try {
         const {id, password} = userDetails;
-        const result = await authRepo.db.query<{hash: string}>(`SELECT hash from todoapp.users where id=$1 AND is_active = true`, [id]);
-        const hash: string = result.rows[0].hash;
+        const result = await authRepo.db.query<{hash: string; email: string}>(`SELECT hash,email from todoapp.users where id=$1 AND is_active = true`, [id]);
+        const {email, hash} = result.rows[0];
         const isValid = await cryptoSvc.validateCrypto<string>(password as string, hash);
         if(!isValid) {
             throw 'Invalid password';
         }
-        // Create JSON TOken
-        return 'Authenticated Successfully';
+        return {
+            id: id as number,
+            email
+        };
     } catch (e) {
         return null;
     }

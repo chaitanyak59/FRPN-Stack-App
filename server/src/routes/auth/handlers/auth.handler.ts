@@ -4,6 +4,7 @@ import codes from 'http-status-codes';
 import * as authRepo from '../repo/auth.repo';
 import { getStatusCode, getResponsePayload } from "../../../helpers/response.helpers";
 import { PAuthUser } from "../../../types/user-types";
+import { createToken } from "../services/token.service";
 
 // Register User
 export async function registerUser(request: Request, reply: Response) {
@@ -25,8 +26,9 @@ export async function validateUser(request: Request, reply: Response) {
 export async function validatePassword(request: Request, reply: Response) {
     const userDetails: PAuthUser = request.body;
     const data = await authRepo.validatePassword(userDetails);
-    reply.code(getStatusCode(data, false, codes.BAD_REQUEST));
-    reply.send(getResponsePayload(data, 'Error / Invalid Password Entered'));
+    const token = await createToken(reply, data);
+    reply.code(getStatusCode(token, false, codes.BAD_REQUEST));
+    reply.send(getResponsePayload({...data, token}, 'Error / Invalid Password Entered'));
 }
 
 // Update Passcode
