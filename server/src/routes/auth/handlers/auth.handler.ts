@@ -10,7 +10,7 @@ export async function registerUser(request: Request, reply: Response) {
     const emailID: string = request.params.emailID;
     const data = await authRepo.registerUser(emailID);
     reply.code(getStatusCode(data, true));
-    reply.send(getResponsePayload(data, 'User Registered Successfully!'));
+    reply.send(getResponsePayload(data, 'Error/ Already Registered!'));
 }
 
 // Validate User
@@ -25,7 +25,7 @@ export async function validateUser(request: Request, reply: Response) {
 export async function validatePassword(request: Request, reply: Response) {
     const userDetails: PAuthUser = request.body;
     const data = await authRepo.validatePassword(userDetails);
-    reply.code(getStatusCode(data, false, codes.UNAUTHORIZED));
+    reply.code(getStatusCode(data, false, codes.BAD_REQUEST));
     reply.send(getResponsePayload(data, 'Error / Invalid Password Entered'));
 }
 

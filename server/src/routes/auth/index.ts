@@ -6,9 +6,9 @@ import { registerUserSchema, validateUserSchema, validatePasswordSchema, changeP
 export default function authRoutes(server: FastifyServer, _: ServerRouterOptions, done: (error?: Error) => void): void {
     initAuthRepo(server.db); // Initialise Repo Layer
 
-    server.post('register/:emailID', { schema: registerUserSchema }, handler.registerUser);
     server.get('user/:emailID', { schema: validateUserSchema }, handler.validateUser);
-    server.post('validate', { schema: validatePasswordSchema }, handler.validatePassword);
-    server.post('change-password', { schema: changePasswordSchema }, handler.validatePassword);
+    server.put('change-password', { schema: changePasswordSchema }, handler.updatePassword);
+    server.post('register/:emailID', { schema: registerUserSchema }, handler.registerUser);
+    server.post('authenticate', { schema: validatePasswordSchema }, handler.validatePassword);
     done();
 }

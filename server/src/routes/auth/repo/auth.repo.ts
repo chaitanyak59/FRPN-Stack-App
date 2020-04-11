@@ -7,7 +7,7 @@ import { PAuthUser } from "../../../types/user-types";
 export async function registerUser(emailID: string): Promise<PAuthUser | null> {
     try {
         // Check User Already Exists
-        const userDetails = await authRepo.db.query<{ id: number; is_active: boolean }>(`SELECT id,is_active from todoapp.users where is_active = true AND email like $1`, [
+        const userDetails = await authRepo.db.query<{ id: number; is_active: boolean }>(`SELECT id,is_active from todoapp.users where email like $1`, [
             emailID
         ]);
 
@@ -57,7 +57,7 @@ export async function updatePassword(userDetails: PAuthUser): Promise<boolean | 
         const { id, password } = userDetails;
         const userSalt = await authRepo.db.query<{ salt: string }>(`SELECT salt from todoapp.users where id=$1`, [id]);
         const hash = await bcrypt.hash(password, userSalt.rows[0].salt);
-        await authRepo.db.query<{ email: string }>(`UPDATE todoapp.users set password=$1,is_active=true WHERE id=$2 RETURNING email`, [
+        await authRepo.db.query<{ email: string }>(`UPDATE todoapp.users set hash=$1,is_active=true WHERE id=$2 RETURNING email`, [
             hash,
             id
         ]);

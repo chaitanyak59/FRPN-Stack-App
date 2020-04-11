@@ -5,8 +5,7 @@ const bodyJsonSchema = {
     required: ['id', 'password'],
     properties: {
         id: {
-            type: 'number',
-            minimum: 1,
+            type: 'number'
         },
         password: {
             type: 'string',
