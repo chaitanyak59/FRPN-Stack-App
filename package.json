@@ -13,7 +13,8 @@
     "server:deps": "cd server && yarn install && cd ..",
     "build": "npm run build:client && npm run build:server",
     "build:client": "cd client && yarn build && cd ..",
-    "build:server": "cd server && yarn build && cd .."
+    "build:server": "cd server && yarn build && cd ..",
+    "start:app": "concurrently \"cd client && yarn start\" \"cd server && yarn start\""
   },
   "cacheDirectories": [
     "client/node_modules", 

@@ -1,23 +1,28 @@
 import { TodoItem } from "../../types/todo.types";
+import { AxiosRequestConfig } from "axios";
 
-export const createTodoItemRequest = (data: { name: string, description: string }) => ({
+export const createTodoItemRequest = (data: { name: string, description: string }): AxiosRequestConfig => ({
     data,
     method: 'POST',
-    url: '/posts'
+    url: '/posts',
+    withCredentials: true
 });
 
-export const updateTodoListRequest = (data: TodoItem) => ({
+export const updateTodoListRequest = (data: TodoItem): AxiosRequestConfig => ({
     data,
     method: 'PUT',
     url: '/posts',
+    withCredentials: true
 });
 
-export const getToDoListRequest = () => ({
+export const getToDoListRequest = (): AxiosRequestConfig => ({
     method: 'GET',
-    url: '/posts'
+    url: '/posts',
+    withCredentials: true
 })
 
-export const deleteTodoItemRequest = (id: number) => ({
+export const deleteTodoItemRequest = (id: number): AxiosRequestConfig => ({
     method: 'DELETE',
-    url: `/posts/${id}`
+    url: `/posts/${id}`,
+    withCredentials: true
 });
