@@ -1,7 +1,6 @@
 import { authRepo } from "./repo.definition";
-import bcrypt from 'bcrypt';
-import { generateRandomSalt } from "../../../helpers/app.helpers";
 import { PAuthUser } from "../../../types/user-types";
+import { cryptoSvc } from "../services/crypto.service";
 
 // Store User With Salt,generate, send success message
 export async function registerUser(emailID: string): Promise<PAuthUser | null> {
@@ -15,9 +14,7 @@ export async function registerUser(emailID: string): Promise<PAuthUser | null> {
         if (user && user[0] && user[0].id) {
             throw 'Already Registered!';
         }
-
-        const rounds: number = generateRandomSalt();
-        const dynamicSalt = await bcrypt.genSalt(rounds);
+        const dynamicSalt = await cryptoSvc.generateSalt();
         const data = await authRepo.db.query<{ id: number }>(`INSERT INTO todoapp.users(email, salt) values ($1,$2) RETURNING id`, [
             emailID,
             dynamicSalt
@@ -56,7 +53,7 @@ export async function updatePassword(userDetails: PAuthUser): Promise<boolean | 
     try {
         const { id, password } = userDetails;
         const userSalt = await authRepo.db.query<{ salt: string }>(`SELECT salt from todoapp.users where id=$1`, [id]);
-        const hash = await bcrypt.hash(password, userSalt.rows[0].salt);
+        const hash = await cryptoSvc.createHash(password as string, userSalt.rows[0].salt);
         await authRepo.db.query<{ email: string }>(`UPDATE todoapp.users set hash=$1,is_active=true WHERE id=$2 RETURNING email`, [
             hash,
             id
@@ -73,7 +70,7 @@ export async function validatePassword(userDetails: PAuthUser): Promise<string|n
         const {id, password} = userDetails;
         const result = await authRepo.db.query<{hash: string}>(`SELECT hash from todoapp.users where id=$1 AND is_active = true`, [id]);
         const hash: string = result.rows[0].hash;
-        const isValid = await bcrypt.compare(password, hash);
+        const isValid = await cryptoSvc.validateCrypto<string>(password as string, hash);
         if(!isValid) {
             throw 'Invalid password';
         }
