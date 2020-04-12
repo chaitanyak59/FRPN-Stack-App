@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS users (
    CONSTRAINT users_pk  PRIMARY KEY (id)
 );
 
-INSERT INTO users(id, email, salt, hash, is_active) values (-1, 'superhero@default.com', '$2b$10$d6OEfsnqm98c2mQGMHR9Ou', '$2b$10$d6OEfsnqm98c2mQGMHR9Ou', true);
+INSERT INTO users(id, email, salt, hash, is_active) values (-1, 'demo@user.com', '$2b$10$d6OEfsnqm98c2mQGMHR9Ou', '$2b$10$d6OEfsnqm98c2mQGMHR9Ou', true);
 
 ALTER TABLE todoapp.todo ALTER COLUMN user_id DROP DEFAULT;
 ALTER TABLE todoapp.todo ADD CONSTRAINT todo_userid_fkey FOREIGN KEY(user_id)
