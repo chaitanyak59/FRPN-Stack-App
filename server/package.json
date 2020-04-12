@@ -16,6 +16,7 @@
     "http-status-codes": "1.4.0",
     "node-pg-migrate": "4.6.1",
     "pg": "7.18.2",
+    "@types/bcrypt": "3.0.0",
     "typescript": "3.8.3"
   },
   "scripts": {
@@ -29,7 +30,6 @@
     "start:prod": "cross-env NODE_ENV=production node build/main.js"
   },
   "devDependencies": {
-    "@types/bcrypt": "^3.0.0",
     "@types/chai": "4.2.11",
     "@types/mocha": "7.0.2",
     "@types/node": "13.9.2",
