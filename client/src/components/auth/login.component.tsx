@@ -45,7 +45,7 @@ const LoginComponent: React.FC = (props: any) => {
 
     return (
         <div className="container formclass">
-            <form>
+            <form onSubmit={(e) => e.preventDefault()}>
                 <div className="form-group col-md-6">
                     <h3>Hello !</h3>
                     <input type="email" required className="form-control input-sm" id="email" placeholder="Enter Email" value={email} onChange={(e) => setEmail(e.target.value)} />
