@@ -28,7 +28,7 @@ const LoginComponent: React.FC = (props: any) => {
             email: payload.email,
             id: payload.id
         }})
-        props.history.push('/authenticate')
+        props.history.push(state.isNewUser ? `/confirm-account/${payload.session}` : '/authenticate')
     }, [fetchApi, state.isNewUser, props.history, dispatch]);
 
     function handleFormSubmit(submission: 'Login' | 'Signup') {
@@ -47,7 +47,7 @@ const LoginComponent: React.FC = (props: any) => {
         <div className="container formclass">
             <form>
                 <div className="form-group col-md-6">
-                    <h5>Hello !</h5>
+                    <h3>Hello !</h3>
                     <input type="email" required className="form-control input-sm" id="email" placeholder="Enter Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                     <small id="emailHelp" className="form-text text-muted">{error}</small>
                 </div>
@@ -57,7 +57,7 @@ const LoginComponent: React.FC = (props: any) => {
                         fontSize: '18px',
                         margin: '12px'
                     }}>|</span>
-                    <button type="button" className="btn btn-info btn-sm" onClick={(e) => handleFormSubmit('Signup')}>Signup</button>
+                    <button type="button" disabled={true} className="btn btn-info btn-sm" onClick={(e) => handleFormSubmit('Signup')}>Signup</button>
                 </div>
             </form>
         </div>

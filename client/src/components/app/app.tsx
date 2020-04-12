@@ -4,32 +4,38 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { reducer } from '../../store/reducer';
 import { initialState, AuthContext } from '../../store/state';
 
-import LoginComponent from '../login/login.component';
-import PasswordComponent from '../login/password.component';
+import LoginComponent from '../auth/login.component';
+import PasswordComponent from '../auth/password.component';
 import HomeComponent from '../home/home.component';
 import { NoMatch } from '../404/nomatch-component';
+import PrivateRoute from '../routing/routing.component';
+import { unloadState, loadState } from '../../store/cache.service';
 
 const App: React.FC = () => {
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, dispatch] = useReducer(reducer, initialState, loadState);
+
     useEffect(() => {
-        console.log('State Updated @', new Date().getTime(), state);
+        const callback = unloadState.bind(null, state)
+        window.addEventListener('unload', callback);
+        return () => window.removeEventListener('unload', callback);
     }, [state]);
 
     return (
-        <Router>
-            <>
+        <>
+            <Router>
                 <Suspense fallback={<div>Loading Awesomeness...</div>}>
                     <AuthContext.Provider value={{ state, dispatch }}>
                         <Switch>
-                            <Route exact path="/" component={HomeComponent} />
+                            <PrivateRoute exact path="/" component={HomeComponent} />
                             <Route exact path="/login" component={LoginComponent} />
                             <Route exact path="/authenticate" component={PasswordComponent} />
+                            {/* <Route exact path="/confirm-account/:sessionID" component={ConfirmAccount} /> */}
                             <Route component={NoMatch} />
                         </Switch>
                     </AuthContext.Provider>
                 </Suspense>
-            </>
-        </Router>
+            </Router>
+        </>
     )
 }
 

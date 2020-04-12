@@ -5,6 +5,7 @@ import { useApiEffect } from '../hooks/api.hook';
 import { authenticateUser } from '../../api/backend/auth-api';
 import { AuthContext } from '../../store/state';
 import { tokenStorage } from '../../helpers/token-storage/token-helpers';
+import { Redirect } from 'react-router-dom';
 
 function validatePassword(password: string) {
     return password.length >=6;
@@ -48,16 +49,20 @@ const PasswordComponent: React.FC = (props: any) => {
         }));
     }
 
+    if (!state.email) {
+        return <Redirect to={'/login'} />
+    }
+
     return (
         <div className="container formclass">
             <form onSubmit={handleFormSubmit}>
                 <div className="form-group col-md-6">
-                    <h3>Welcome {state.email}</h3>
+                    <h5>Welcome {state.email}</h5>
                     <input type="password" required className="form-control input-sm" name="password" id="password" placeholder="Enter Password"/>
                     <small id="emailHelp" className="form-text text-muted">{error}</small>
                 </div>
                 <div style={{ paddingLeft: '20%' }}>
-                    <button type="submit" className="btn btn-info btn-sm">Login</button>
+                    <button type="submit" className="btn btn-success btn-lg">Login</button>
                 </div>
             </form>
         </div>

@@ -10,8 +10,9 @@ import { createToken } from "../services/token.service";
 export async function registerUser(request: Request, reply: Response) {
     const emailID: string = request.params.emailID;
     const data = await authRepo.registerUser(emailID);
-    reply.code(getStatusCode(data, true));
-    reply.send(getResponsePayload(data, 'Error/ Already Registered!'));
+    const session = await createToken(reply, data, 3000);
+    reply.code(getStatusCode(session, true, codes.BAD_REQUEST));
+    reply.send(getResponsePayload(session ? {...data, session}: null, 'Error/ Already Registered!'));
 }
 
 // Validate User

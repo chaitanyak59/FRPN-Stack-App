@@ -5,7 +5,7 @@ export interface AuthState {
     isAuthenticated: boolean;
 }
 
-export type AuthAction = 'ValidateEmail' | 'AuthenticateUser' | 'Logout' | 'LoginSuccess'
+export type AuthAction = 'ValidateEmail' | 'AuthenticateUser' | 'LoginSuccess' | 'LogoutUser';
 
 interface BaseAction {
     type: AuthAction

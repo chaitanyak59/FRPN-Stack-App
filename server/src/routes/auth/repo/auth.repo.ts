@@ -6,7 +6,7 @@ import { cryptoSvc } from "../services/crypto.service";
 export async function registerUser(emailID: string): Promise<PAuthUser | null> {
     try {
         // Check User Already Exists
-        const userDetails = await authRepo.db.query<{ id: number; is_active: boolean }>(`SELECT id,is_active from todoapp.users where email like $1`, [
+        const userDetails = await authRepo.db.query<{ id: number; is_active: boolean }>(`SELECT id,is_active from todoapp.users where is_active = true AND email like $1`, [
             emailID
         ]);
 

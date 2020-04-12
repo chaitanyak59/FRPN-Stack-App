@@ -9,7 +9,7 @@ export function NoMatch() {
     return (
         <div>
             <h3>
-                No match for <code>{location.pathname}</code>
+                Welcome to Dark Hole <code>{location.pathname}</code>
             </h3>
         </div>
     );
