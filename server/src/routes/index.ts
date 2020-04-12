@@ -2,7 +2,7 @@ import * as path from 'path';
 import fstatic from 'fastify-static';
 import { FastifyServer } from '../global';
 import todoListRoutes from './todo';
-import { errorHandler } from '../helpers/api-error.helpers';
+import { e404Handler } from '../helpers/api-error.helpers';
 import authRoutes from './auth';
 
 function registerHandlers(server: FastifyServer, _: unknown, done: (error?: Error) => void) {
@@ -23,6 +23,6 @@ function initRestRoutes(server: FastifyServer): void {
 export default function initialiseRoutes(server: FastifyServer): void {
     initRestRoutes(server);
 
-    // Error Handler
-    server.setNotFoundHandler(errorHandler);
+    // 404 Handler
+    server.setNotFoundHandler(e404Handler);
 }
