@@ -11,7 +11,7 @@ import {
 
 export default function todoListRoutes(server: FastifyServer, _: ServerRouterOptions, done: (error?: Error) => void): void {
     initTodoRepo(server.db); // Initialise Repo Layer
-
+    server.addHook('preValidation', server.authenticate);
     server.get('/', handler.getAllTodoData);
     server.get('/:id', { schema: getTodoByIdSchema }, handler.getTodoById);
     server.post('/', { schema: createTodoSchema }, handler.createTodoItem);

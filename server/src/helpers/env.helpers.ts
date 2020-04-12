@@ -5,6 +5,11 @@ export const getSSLConnection = (): boolean => {
     return env.PGSSLMODE === "require";
 };
 
+export const getAuthSecret = (): string => {
+    const env = getEnv();
+    return String(env.MAGIC_SECRET);
+};
+
 export const getServerPort = (): number => {
     const env = getEnv();
     return Number(env.PORT);
