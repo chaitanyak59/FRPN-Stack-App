@@ -23,7 +23,14 @@ async function startServer(): Promise<void> {
     const host = getServerHost();
   
     server = fastify({
-      logger: true
+      logger: {
+        serializers: {
+          err: function () {
+            return { err: 'Error Occured' };
+          }
+        },
+      },
+      ignoreTrailingSlash: true,
     });
     applySettings(server); // Can include Configuration,DB-plugin
     initialiseRoutes(server);

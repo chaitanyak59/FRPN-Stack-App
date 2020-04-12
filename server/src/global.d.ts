@@ -3,6 +3,7 @@ import { Server, IncomingMessage, ServerResponse } from 'http';
 
 declare interface FastifyServer extends fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> {
     db?: any;
+    authenticate?: any;
 }
 
 declare type Request = fastify.FastifyRequest<IncomingMessage, fastify.DefaultQuery, fastify.DefaultParams, fastify.DefaultHeaders, any>;

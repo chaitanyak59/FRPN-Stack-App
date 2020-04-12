@@ -21,6 +21,7 @@ Project is built with React and uses Node with Fastify framework for server.
         * docker-compose up --build
         * Docker will build the required images, starts the App and exposes 3000 port
         * Head to your Browser and open localhost:3000
+        * Login React app with default credentials(in root dir, find credentials.txt)
 
     > Local Setup
     * You'll find two directories
@@ -28,6 +29,7 @@ Project is built with React and uses Node with Fastify framework for server.
         2) server (Node-server)
     * Run > cd client && yarn install
     * Run > cd server && yarn install
+    * Login React app with default credentials(in root dir, find credentials.txt)
     * Database Setup (Must be pre-configured)
         * Create a database in postgres under name todolist
         * Create Schema under todolist with name todoapp (Kill me later!)
@@ -52,7 +54,6 @@ Refer package.json of both the directories for lints and tests commands
 
 ### Up coming
 1) Add Golang Server using Echo
-2) Add Auth layer
 
 ## Deployment
 
