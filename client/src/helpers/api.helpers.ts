@@ -1,9 +1,9 @@
-import { REQUEST_STATUS, ApiHook, AuthResponse } from "../types/api.types";
+import { REQUEST_STATUS, ApiHook, ApiResponse } from "../types/api.types";
 
 export const updateRequestStatus = (config: any): ApiHook => ({
     status: REQUEST_STATUS.inprogress,
     error: undefined,
-    data: {} as AuthResponse,
+    data: {} as ApiResponse,
     requestConfig: config
 });
 

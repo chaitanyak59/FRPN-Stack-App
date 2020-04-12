@@ -40,6 +40,7 @@ const PasswordComponent: React.FC = (props: any) => {
         const pass: string = formData["password"].value;
         if(!pass || !validatePassword(pass)) {
             setMessage('Error: Enter Password')
+            return;
         }
         setMessage('')
         setFetchApi(authenticateUser({
