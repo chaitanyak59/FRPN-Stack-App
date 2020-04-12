@@ -28,7 +28,7 @@ export async function validatePassword(request: Request, reply: Response) {
     const data = await authRepo.validatePassword(userDetails);
     const token = await createToken(reply, data);
     reply.code(getStatusCode(token, false, codes.BAD_REQUEST));
-    reply.send(getResponsePayload({...data, token}, 'Error / Invalid Password Entered'));
+    reply.send(getResponsePayload(token ? {...data, token} : null, 'Error / Invalid Password Entered'));
 }
 
 // Update Passcode

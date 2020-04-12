@@ -31,7 +31,7 @@ export async function registerUser(emailID: string): Promise<PAuthUser | null> {
 // Check User active or not
 export async function validateUser(emailID: string): Promise<PAuthUser | null> {
     try {
-        const userDetails = await authRepo.db.query<{ id: number; is_active: boolean }>(`SELECT id,is_active from todoapp.users where is_active = true AND email like $1`, [
+        const userDetails = await authRepo.db.query<{ id: number; is_active: boolean }>(`SELECT id,is_active from todoapp.users WHERE email like $1`, [
             emailID
         ]);
 
@@ -41,7 +41,8 @@ export async function validateUser(emailID: string): Promise<PAuthUser | null> {
         }
         return {
             id: user[0].id,
-            email: emailID
+            email: emailID,
+            isActive: user[0].is_active
         };
     } catch (e) {
         return null;

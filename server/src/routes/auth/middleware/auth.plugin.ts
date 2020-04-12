@@ -7,7 +7,6 @@ import { RouteOptions } from 'fastify';
 export const initializeAuthPlugin: any = async (server: FastifyServer, opts: RouteOptions,
     done: (error?: Error) => void): Promise<void> => {
     server.register(jwt, { secret: getAuthSecret() });
-
     server.decorate("authenticate", async function (request: Request, reply: Response) {
         try {
             await request.jwtVerify();

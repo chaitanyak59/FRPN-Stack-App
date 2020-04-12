@@ -8,7 +8,7 @@ interface AuthUser {
 export interface TokenState {
     token: string;
     set: (token: string) => void;
-    get: () => void;
+    get: () => string;
     clear: () => void;
 }
 
