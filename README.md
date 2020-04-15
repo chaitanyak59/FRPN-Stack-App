@@ -14,14 +14,13 @@ Project is built with React and uses Node with Fastify framework for server.
 ### Installing
 ####   Walk-thru of Project Setup:
 * Pull repo
-
+* Default Login: email: demo@user.com | pass:<strike>demouser</strike>
     > Docker Mode (Easy if you have Docker)
     * Make Sure you have Docker installed and up
     * Checkout to project root directory and run
         * docker-compose up --build
         * Docker will build the required images, starts the App and exposes 3000 port
         * Head to your Browser and open localhost:3000
-        * Login React app with default credentials(in root dir, find credentials.txt)
 
     > Local Setup
     * You'll find two directories
