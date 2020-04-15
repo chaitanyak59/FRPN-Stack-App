@@ -14,7 +14,7 @@ Project is built with React and uses Node with Fastify framework for server.
 ### Installing
 ####   Walk-thru of Project Setup:
 * Pull repo
-* Default Login: email: demo@user.com | pass: <strike>demouser</strike>
+* Default Login: email: demo@user.com | pass:<strike>demouser</strike>
     > Docker Mode (Easy if you have Docker)
     * Make Sure you have Docker installed and up
     * Checkout to project root directory and run
